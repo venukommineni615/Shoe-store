@@ -5,24 +5,23 @@ import { CartContext } from "../store/CartContext";
 import { ProductContext } from "../store/ProductContext";
 import { BaseUrl } from "../store/UrlContentProvider";
 const Product = (props) => {
-  const baserul=useContext(BaseUrl)
+  // const baserul=useContext(BaseUrl)
   const baseurl=useContext(BaseUrl)
   const cartCtx = useContext(CartContext);
   const productCtx = useContext(ProductContext);
   const { name, description, price, large, medium, small, _id } = props.product;
-  useEffect(()=>{
-    const deleteItem=async()=>{
-      await fetch(`${baserul.url}/products/${_id}`,{
-      method:'DELETE',
-      headers:{
-        'Content-Type':'application/json'
-      }
-    })}
-    if(large===0 && medium===0 && small===0){
-      console.log('inside if',large,small, medium)
-      deleteItem()
-    }
-  },[large,medium,small])
+  // useEffect(()=>{
+  //   const deleteItem=async()=>{
+  //     await fetch(`${baserul.url}/products/${_id}`,{
+  //     method:'DELETE',
+  //     headers:{
+  //       'Content-Type':'application/json'
+  //     }
+  //   })}
+  //   if(large===0 && medium===0 && small===0 && _id!==undefined){
+  //     deleteItem()
+  //   }
+  // },[large,medium,small])
   const addToCart = async (size) => {
     let product;
     if (size === "large") {
@@ -35,18 +34,13 @@ const Product = (props) => {
       product = { name, description, price, large: 0, medium: 0, small: 1 };
       productCtx.updateProduct(_id, "small");
     }
-    console.log('cartitems',cartCtx.items)
     let  findElement=cartCtx.items.find((item)=>{
-      console.log('item',item)
-      console.log("itemname and name",item.name,name)
       return item.name===name
     })
     let url=`${baseurl.url}/cart`
     let method='POST'
     let body={...product}
-    console.log('before findElement',findElement)
     if(findElement!==undefined){
-      console.log('after findElement',findElement)
       url=`${baseurl.url}/cart/${findElement._id}`
       method='PUT'
       const updateName=findElement.name

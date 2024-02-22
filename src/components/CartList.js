@@ -13,22 +13,27 @@ const CartList = (props) => {
     centered
     scrollable
   >
-    <Modal.Header closeButton>
+    <Modal.Header closeButton className='border-0'>
       <Modal.Title id="contained-modal-title-vcenter">
-        Modal heading
+        Cart
       </Modal.Title>
     </Modal.Header>
-    <Modal.Body >
-      {console.log('cart items',cartCtx.items)}
+    <Modal.Body  >
       {cartCtx.items.map((item)=>{
-        console.log('item',item)
-        console.log('item id',item._id)
+        console.log('cart items',cartCtx.items)
+        console.log('individual item',item)
         return <Cart key={item._id} item={item}></Cart>
       })}
     </Modal.Body>
-    <Modal.Footer>
-      <Button onClick={props.onHide} variant='light' className='border border-2 border-secondary'>Close</Button>
-      <Button onClick={props.onHide} variant='secondary' className='border border-2 border-secondary'>order</Button>
+    <Modal.Footer className='d-block border-0'>
+      <div className='d-flex justify-content-between'>
+        <p className='fw-bold'>Total Price</p>
+        <p className='fw-bold '>$ {cartCtx.totalPrice}</p>
+      </div>
+      <div className='d-flex justify-content-end'>
+        <Button onClick={props.onHide} variant='light' className='border border-2 border-secondary'>Close</Button>
+        <Button onClick={props.onHide} variant='secondary' className='ms-2 border border-2 border-secondary'>order</Button>
+      </div>
     </Modal.Footer>
   </Modal>
   )

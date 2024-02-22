@@ -28,22 +28,32 @@ const ProductProvider = (props) => {
             let productToBeUpdated
             if(size==='large'){
                 productToBeUpdated={...updateProducts[index],large:parseInt(updateProducts[index].large)-1}
-                const data=  fetchUpdate(`${baseurl.url}/products/${id}`,{...productToBeUpdated})
+                fetchUpdate(`${baseurl.url}/products/${id}`,{...productToBeUpdated})
                 
             }else if(size==='medium'){ 
                 productToBeUpdated={...updateProducts[index],medium:parseInt(updateProducts[index].medium)-1}
-                    const data=  fetchUpdate(`${baseurl.url}/products/${id}`,{...productToBeUpdated})
+                   fetchUpdate(`${baseurl.url}/products/${id}`,{...productToBeUpdated})
                 }else{
                     productToBeUpdated={...updateProducts[index],small:parseInt(updateProducts[index].small)-1}
-                    const data=  fetchUpdate(`${baseurl.url}/products/${id}`,{...productToBeUpdated})
+                     fetchUpdate(`${baseurl.url}/products/${id}`,{...productToBeUpdated})
             }
             updateProducts[index]=productToBeUpdated
             const {large,medium,small}=productToBeUpdated
             let remainingProducts=[...updateProducts]
             if(small===0 && medium===0 && large ===0){
-                  remainingProducts=prev.filter((product)=>{
-                    return product.id!==id
+                console.log('before filter',remainingProducts,updateProducts)
+                const deleteItem=async()=>{
+                    await fetch(`${baseurl.url}/products/${id}`,{
+                    method:'DELETE',
+                    headers:{
+                      'Content-Type':'application/json'
+                    }
+                  })}
+                  deleteItem()
+                remainingProducts=updateProducts.filter((product)=>{
+                    return product._id!==id
                 })
+                console.log('after filter',remainingProducts)
             }
             return [...remainingProducts]
         })

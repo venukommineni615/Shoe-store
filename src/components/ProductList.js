@@ -7,7 +7,6 @@ import { BaseUrl } from '../store/UrlContentProvider'
 const ProductList = () => {
   const baseurl=useContext(BaseUrl)
     const productCtx=useContext(ProductContext)
-    console.log('product list',productCtx.products)
     useEffect(()=>{
             fetchData() 
             },[])
@@ -26,7 +25,6 @@ const ProductList = () => {
   return (
     <Container className='mt-4'>
         {productCtx.products.map((product)=>{
-          console.log('product',product)
             return <Product key={product._id} product={product}></Product>
         })}
     </Container>

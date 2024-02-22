@@ -37,6 +37,12 @@ const ProductForm = () => {
     const data=await res.json()
     const _id=data._id
     productCtx.addProduct({...product,_id})
+    name.current.value=''
+    description.current.value=''
+    price.current.value=''
+    large.current.value=''
+    medium.current.value=''
+    small.current.value=''
 
   };
   return (
@@ -54,13 +60,13 @@ const ProductForm = () => {
       </Row>
       <Row className="my-2">
         <Col>
-          <Form.Control ref={large} type="number" placeholder="Large" />
+          <Form.Control ref={large} type="number" placeholder="Large"  min={1}/>
         </Col>
         <Col>
-          <Form.Control ref={medium} type="number" placeholder="Medium" />
+          <Form.Control ref={medium} type="number" placeholder="Medium"  min={1}/>
         </Col>
         <Col>
-          <Form.Control ref={small} type="number" placeholder="Small" />
+          <Form.Control ref={small} type="number" placeholder="Small" min={1}/>
         </Col>
       </Row>
       <Button

@@ -10,12 +10,13 @@ const Header = (props) => {
   const cartCtx=useContext(CartContext)
   const {data}=useFetch(`${baseurl.url}/cart`)
  useEffect(()=>{
+  console.log('data',data)
   data.forEach((item)=>{
     const index=cartCtx.items.find((product)=>{
       return product._id=item._id
     })
     if(!index){
-      console.log('item in navbar com',item)
+      console.log('inside add item during initial render',item)
       cartCtx.addItem(item)
     }
   })
